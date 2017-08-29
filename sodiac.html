@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>map test</title>
+	<style> #map { width: 70%; height: 600px;position: relative;display: inline-block;} 
+	/*#content { height: 120px;width: 400px;border-radius: 20px; position: relative;} */
+	.gm-style-iw {
+	width: 350px !important;
+	top: 15px !important;
+	left: 0px !important;
+	background-color: #fff;
+	box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+	border: 1px solid rgba(72, 181, 233, 0.6);
+	border-radius: 2px 2px 10px 10px;
+}
+#iw-container {
+	margin-bottom: 10px;
+}
+#iw-container .iw-title {
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 22px;
+	font-weight: 400;
+	padding: 10px;
+	background-color: #74c665;
+	color: white;
+	margin: 0;
+	border-radius: 2px 2px 0 0;
+}
+#iw-container .iw-content {
+	font-size: 13px;
+	line-height: 18px;
+	font-weight: 400;
+	margin-right: 1px;
+	padding: 15px 5px 20px 15px;
+	max-height: 140px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.iw-content img {
+	float: right;
+	margin: 0 5px 5px 10px;	
+}
+.iw-subTitle {
+	font-size: 16px;
+	font-weight: 700;
+	padding: 5px 0;
+}
+.iw-bottom-gradient {
+	position: absolute;
+	width: 326px;
+	height: 25px;
+	bottom: 10px;
+	right: 18px;
+	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+}
+.filtre {display: inline-block;}
+
+.ingenierie {
+  	animation: pulse .5s alternate;
+    -webkit-animation: pulse .5s -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;lternate;
+    transform-origin: center;
+    -webkit-transform-origin: center;
+}
+.habitat {
+  	animation: pulse .5s alternate;
+    -webkit-animation: pulse .5s  alternate;
+    transform-origin: center;
+    -webkit-transform-origin: center;
+}
+.amenagement  {
+  	animation: pulse .5s alternate;
+    -webkit-animation: pulse .5s alternate;
+    transform-origin: center;
+    -webkit-transform-origin: center;
+}*/
+keyframes pulse{
+    to { 
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);  
+    }
+}
+
+@-webkit-keyframes pulse{
+    to { 
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);  
+    }
+}
+
+
+
+body {margin: 0; padding: 0;}
+		</style>
+</head>		
+<body> 
+	<div id="map">
+		</div>
+		  <div class="filtre">
+			<div class="habitatInput">
+			<img src="habitat2.png" alt="">
+				<h3>Habitat</h3>
+		</div>
+		<div class="immobilierInput">
+			<img src="immobilier2.png" alt="">
+				<h3>immobilier</h3>
+		</div>
+		<div class="amenagementInput">
+			<img src="amenagement2.png" alt="">
+				<h3>amenagement</h3>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+var data = [
+			{country: 'ingenierie', name: 'Paris', lat: 20.904788036065646, lng: 55.498504064567086},
+			{country: 'ingenierie', name: 'Melun', lat: -20.889987, lng: 55.500152},
+			{country: 'ingenierie', name: 'Lyon', lat: -20.873431, lng: 55.452629},
+			{country: 'habitat', name: 'Berlin', lat: -20.948746, lng: 55.281660, id: 'habitat'},
+			{country: 'habitat', name: 'Baden Baden', lat: -20.895015, lng: 55.497857, id: 'habitat'},
+			{country: 'habitat', name: 'Berlin', lat: -21.326289, lng: 55.608400, id: 'habitat'},
+			{country: 'habitat', name: 'Baden Baden', lat:  -20.913092, lng: 55.620134, id: 'habitat'},
+			{country: 'habitat', name: 'Berlin', lat: -20.908671, lng: 55.605084, id: 'habitat'},
+			{country: 'habitat', name: 'Baden Baden', lat: -21.346450, lng: 55.492311, id: 'habitat'},
+			{country: 'habitat', name: 'Berlin', lat: -20.890523, lng: 55.443799, id: 'habitat'},
+			{country: 'habitat', name: 'Baden Baden', lat: -21.020964, lng: 55.264664, id: 'habitat'},
+			{country: 'amenagement', name: 'Londres', lat: -21.34296, lng: 55.494574},
+			{country: 'amenagement', name: 'Bristol', lat: -20.888212, lng: 55.469084},
+			{country: 'amenagement', name: 'Plymouth', lat: -21.026939, lng: 55.268634},
+			{country: 'amenagement', name: 'Londres', lat: -20.888738, lng: 55.501599},
+			{country: 'amenagement', name: 'Bristol', lat: -20.931442, lng: 55.298157},
+			{country: 'amenagement', name: 'Plymouth', lat: -20.907459, lng: 55.503217},
+			{country: 'amenagement', name: 'Londres', lat: -20.926038, lng: 55.454804},
+			{country: 'amenagement', name: 'Bristol', lat: -20.890375411758, lng: 55.478247832507},
+			{country: 'amenagement', name: 'Plymouth', lat: -20.913568159019, lng: 55.477636288851},
+			{country: 'amenagement', name: 'Londres', lat: -20.9000754, lng: 55.5013121},
+			{country: 'amenagement', name: 'Bristol', lat: -20.8960772, lng: 55.489854},
+			{country: 'amenagement', name: 'Plymouth', lat: -20.932525568395, lng: 55.295120095834},
+			{country: 'amenagement', name: 'Londres', lat: -20.9320153, lng: 55.2949112},
+			{country: 'amenagement', name: 'Bristol', lat: -20.9065427, lng: 55.5005946},
+			{country: 'amenagement', name: 'Plymouth', lat: -20.895779976115, lng: 55.4460264},
+			{country: 'amenagement', name: 'Londres', lat: -20.905792827343, lng: 55.603423928842},
+			];
+//zoom de depart avec le minimun d'affichage
+		var zoom_depart = [		
+					{
+						elementType: "geometry",
+						stylers: [{color:"#b5b9c7"}]
+					}, 	
+					{
+   
+						featureType: 'poi',
+						elementType: 'labels.text.fill',
+						stylers: [{color: 'blue'}]
+					},
+					{ 
+						featureType: "administrative.neighborhood",
+						stylers:[{visibility: "on"}],
+					},
+					{
+						featureType: "administrative.natural",
+						stylers:[{visibility: "on"}]
+					},
+					{
+						featureType: "administrative.locality",
+						stylers:[{visibility: "off"}]
+					},
+					{
+						featureType: "administrative.province",
+						stylers:[{visibility: "off"}]
+					},
+					{
+						featureType: "landscape.man_made",
+						stylers: [{ visibility: "off"}]
+					},
+					{
+						featureType: "administrative.land_parcel",
+						stylers:[{visibility:'off'}]
+					},
+					{
+						featureType: "administrative.land_parcel",
+						elementType: "labels.text.fill",
+						stylers: [{color: "#bdbdbd"}]
+					},
+					{
+						featureType: "landscape.natural",
+						stylers:[{visibility:"off"}],
+					},
+					{
+						featureType: "landscape.natural.landcover",
+						elementType: "geometry",
+						stylers: [{visibility:"on"}]
+					},
+					{
+						featureType: "poi",
+						stylers:[{ color: "#e9eaee"},{visibility: "on"}]
+					},
+					{
+						featureType: "poi",
+						elementType: "labels.text",
+						stylers: [{visibility : "off"}]
+					},
+					{
+						featureType: "poi.business",
+						stylers: [{visibility : "off"}]
+					},
+					{
+						featureType:"road.local",
+						elementType:"geometry",
+						stylers: [{color:"#ff0080"},{visibility:"off"}]
+
+					},
+					{
+						featureType: "road",
+						stylers: [{visibility : "off"}]
+					},
+					
+       				{
+      					featureType: "water",
+      					elementType: "geometry",
+      					stylers:[{color: "#ebecf1"}]
+      				},
+					{
+						featureType: "water",
+						elementType: "labels.text",
+						stylers: [{color: "#9e9e9e"}]
+					}
+					
+				];
+//affichage des grand axe ainsi que des villes				
+		var second_zoom = [
+					{
+						elementType: "geometry",
+						stylers: [{color:"#b5b9c7"}]
+					}, 			
+					{
+		  				featureType: 'poi',
+		  				elementType: 'labels.text.fill',
+		  				stylers: [{color: 'blue'}]
+		  			},
+		  			{ 
+		  				featureType: "administrative.neighborhood",
+		  				stylers:[{visibility: "off"}],
+		  			},
+		  			{
+		  				featureType: "administrative.province",
+		  				stylers:[{visibility: "off"}]
+		  			},
+		  			{
+		  				featureType: "landscape.man_made",
+		  				stylers: [{ visibility: "off"}]
+		  			},
+		  			{
+		  				featureType: "landscape.natural",
+		  				elementType: "geometry.fill",
+		  				stylers: [{color: "#c2c6d1"},{visibility:"off"}],
+		  			},
+		  			{
+		  				featureType: "landscape.natural.landcover",
+		  				elementType: "geometry",
+		  				stylers: [{visibility:"off"}]
+		  			},
+		  			{
+						featureType: "administrative.land_parcel",
+						stylers:[{visibility:'off'}]
+					},
+					{
+						featureType: "administrative.land_parcel",
+						elementType: "labels.text.fill",
+						stylers: [{color: "#bdbdbd"}]
+					},
+		  			{
+		  				featureType: "poi",
+		  				stylers:[{ color: "#e9eaee"},{visibility: "on"}]
+		  			},
+		  			{
+		  				featureType: "poi",
+		  				elementType: "labels.text",
+		  				stylers: [{visibility : "off"}]
+		  			},
+		  			{
+		  				featureType: "poi.business",
+		  				stylers: [{visibility : "off"}]
+		  			},
+		  			{
+						featureType:"road.local",
+						elementType:"geometry",
+						stylers: [{color:"#ff0080"},{visibility:"off"}]
+
+					},
+		  			{
+		  				featureType: "road.highway",
+		  				stylers: [{visibility:"simplified"}]	
+		  			},
+		  			{
+		  				featureType: "road.arterial",
+		  				stylers: [{visibility : "off"}]
+		  			},
+		  			{
+		  				featureType: "road.local",
+		  				stylers: [{visibility : "off"}]
+		  			},
+		  			{
+		  				featureType: 'water',
+		  				elementType: 'geometry.fill',
+		  				stylers: [{ color: '#9e9e9e'}]
+		  			},
+		  			{
+		  				featureType: "water",
+		  				elementType: "labels.text",
+		  				stylers: [{visibility : "off"}]
+		  			}
+				]
+//Affichage quand le zoom est le plus proche (entre 10 et 1)
+		var troisieme_zoom = [
+					{
+							elementType: "geometry",
+							stylers: [{color:"#b5b9c7"}]
+						
+					},
+
+					{
+		  				featureType: 'poi',
+		  				elementType: 'labels.text.fill',
+		  				stylers: [{color: 'blue'}]
+		  			},
+		  			{ 
+		  				featureType: "administrative.neighborhood",
+		  				stylers:[{visibility: "off"}],
+		  			},
+		  			{
+		  				featureType: "landscape.man_made",
+		  				stylers: [{ visibility: "off"}]
+		  			},
+		  			{
+		  				featureType: "landscape.natural",
+		  				elementType: "geometry.fill",
+		  				stylers: [{color: "#c2c6d1"},{visibility:"off"}],
+		  			},
+		  			{
+		  				featureType: "landscape.natural.landcover",
+		  				elementType: "geometry",
+		  				stylers: [{visibility:"off"}]
+		  			},
+		  			{
+						featureType: "administrative.land_parcel",
+						stylers:[{visibility:'off'}]
+					},
+					{
+						featureType: "administrative.land_parcel",
+						elementType: "labels.text.fill",
+						stylers: [{color: "#bdbdbd"}]
+					},
+		  			{
+		  				featureType: "poi",
+		  				stylers:[{ color: "#e9eaee"},{visibility: "off"}]
+		  			},
+		  			{
+		  				featureType: "poi",
+		  				elementType: "labels.text",
+		  				stylers: [{visibility : "on"}]
+		  			},
+		  			{
+		  				featureType: "poi.business",
+		  				stylers: [{visibility : "on"}]
+		  			},
+		  			{
+						featureType:"road.local",
+						elementType:"geometry",
+						stylers: [{color:"#ffffff"},{visibility:"off"}]
+
+					},
+		  			{
+		  				featureType: "road.highway",
+		  				stylers: [{visibility:"on"}]	
+		  			},
+		  			{
+		  				featureType: "road.arterial",
+		  				stylers: [{visibility : "on"}]
+		  			},
+		  			{
+		  				featureType: "road.local",
+		  				stylers: [{visibility : "on"}]
+		  			},
+		  			{
+		  				featureType: 'water',
+		  				elementType: 'geometry.fill',
+		  				stylers: [{ color: '#9e9e9e'}]
+		  			},
+		  			{
+		  				featureType: "water",
+		  				elementType: "labels.text",
+		  				stylers: [{visibility : "off"}]
+		  			}		
+				]
+				function initMap() {
+					var map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: -21.123157, lng:  55.54253},
+						zoom: 10,
+						styles :zoom_depart,
+						scrollwheel: false,
+						mapTypeControl: false,			
+					});
+					google.maps.event.addDomListener(map,'zoom_changed', function() {
+						var zoom =  map.getZoom();
+						if (zoom >=15 && zoom <=20) { 
+							map.setOptions({
+								styles : troisieme_zoom
+							});
+
+						}else if(zoom <= 10 && zoom >= 1){
+							map.setOptions({
+								styles : zoom_depart
+							})
+						}else if(zoom >=12 && zoom <=14){
+							map.setOptions({
+								styles : second_zoom
+							})
+						}
+					});
+
+		
+// Save Markers by location
+var placeMarkerList = {};
+// Checks every place
+$(document).ready(function(){
+	
+for (var i = 0; i < data.length; ++i) {
+
+	var place = data[i];
+	var latLng = new google.maps.LatLng(place.lat, place.lng);
+	var test = (place.lat, place.lng);
+	if(!placeMarkerList.hasOwnProperty(place.country)) {
+		placeMarkerList[place.country] = [];
+	}
+// Creates the marker and save it in place marker list
+var marker = new google.maps.Marker({
+	position: latLng,
+	icon : 'https://s3-eu-west-1.amazonaws.com/test-sodiac/' +
+	place.country + '1.png',
+	optimized: false,
+	animation : google.maps.Animation.DROP
+});
+// Ajout des marker dans le tableau
+placeMarkerList[place.country].push(marker);
+//Ouverture de la popup au click
+marker.addListener('click', function() {
+infowindow.open(map, this);
+});
+
+marker.addListener('click', toggleBounce)
+
+function toggleBounce() {
+	if (this.getAnimation() != null) {
+		this.setAnimation(null);
+	} else {
+		this.setAnimation(google.maps.Animation.BOUNCE);
+	}
+  }
+
+}//boucle for
+
+
+
+
+
+var contentString = '<div id="iw-container">' +
+	'<div class="iw-title">Sodiac Reunion</div>' +
+	'<div class="iw-content">' +
+	'<div class="iw-subTitle">C\'est ainsi que se passe cela</div>' +
+	'<img src="http://www.sodiac.re/bundles/aesodiac/img/logo.jpg" height="115" width="123">' +
+	'<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam asperiores commodi rerum voluptatibus, labore voluptas cum debitis accusantium, id eum ipsum tempora cupiditate maiores quis numquam neque, eveniet possimus modi.</p>' +
+	'<div class="iw-subTitle">Contacts</div>' +
+	'<p>Adresse : 121 Boulevard Jean Jaurès, Saint-Denis, Réunion<br>'+
+	'<br>Téléphone : +262 262 90 21 00</p>'+
+	'</div>' +
+	'<div class="iw-bottom-gradient"></div>' +
+	'</div>';
+
+	var infowindow = new google.maps.InfoWindow({
+		content: contentString,
+		maxWidth: 350,
+		maxHeight: 260
+	});
+
+//Recentrage de la map en responsive
+google.maps.event.addDomListener(window, 'resize', function() {
+	var center = map.getCenter();
+	google.maps.event.trigger(map, "resize");
+	map.setCenter(center);    
+}); 
+// Parse every country to display a cluster for the country
+for (var country in placeMarkerList) {
+	if (placeMarkerList.hasOwnProperty(country)) {
+		var markerCluster = new MarkerClusterer(map,placeMarkerList[country],{
+			imagePath: 'https://s3-eu-west-1.amazonaws.com/test-sodiac/' + country,
+			optimized: false,
+			zoomOnClick: true,
+			cssClass :country,
+		});
+	}
+
+}
+
+$('.ingenierieInput').click(function(){
+	$('.ingenierie').prop('disabled',true);	
+	$('.ingenierie').prop('disabled',false);	
+})
+
+	   var myoverlay = new google.maps.OverlayView();
+       myoverlay.draw = function () {
+           // add an id to the layer that includes all the markers so you can use it in CSS
+       this.getPanes().markerLayer.id='amenagement';
+		};
+
+		myoverlay.setMap(map);
+
+google.maps.event.addListener(infowindow, 'domready', function() {
+
+    // Reference to the DIV that wraps the bottom of infowindow
+    var iwOuter = $('.gm-style-iw');
+
+    /* Since this div is in a position prior to .gm-div style-iw.
+     * We use jQuery and create a iwBackground variable,
+     * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+     */
+     var iwBackground = iwOuter.prev();
+
+    // Removes background shadow DIV
+    iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+    // Removes white background DIV
+    iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+    // Moves the infowindow 115px to the right.
+    iwOuter.parent().parent().css({left: '115px'});
+
+    // Moves the shadow of the arrow 76px to the left margin.
+    iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+    // Moves the arrow 76px to the left margin.
+    iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+    // Changes the desired tail shadow color.
+    iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
+
+    // Reference to the div that groups the close button elements.
+    var iwCloseBtn = iwOuter.next();
+
+    // Apply the desired effect to the close button
+    iwCloseBtn.css({opacity: '1', right: '62px', top: '25px', 'border-radius': '13px'});
+
+    // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+    if($('.iw-content').height() < 140){
+    	$('.iw-bottom-gradient').css({display: 'none'});
+    }
+
+    // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+    iwCloseBtn.mouseout(function(){
+    		$(this).css({opacity: '1'});
+    	});
+	});
+});
+}
+
+initMap();
+
+</script>
+<script src="markerClusterer.js">
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsBarWsyNYsthZcHmcnOuwG7_plVCJYrM&callback=initMap">
+</script>
+	<script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+</body>
+</html>
