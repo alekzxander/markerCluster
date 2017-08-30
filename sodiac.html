@@ -883,9 +883,14 @@
 						placeMarkerList[place.country] = [];
 					}
 					// Creates the marker and save it in place marker list
+					var imgMarker = {
+			            url: place.country + '.png',  
+			            anchor: new google.maps.Point(28,39)        
+			        };
+
 					var marker = new google.maps.Marker({
 						position: latLng,
-						icon : place.country + '.png',
+						icon : imgMarker,
 						class : country,
 						animation : google.maps.Animation.DROP,
 						optimized:false,
