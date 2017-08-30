@@ -70,8 +70,8 @@
 			display: inline-block;
 		}
 		.pulse {
-			animation: pulse .3s 4 alternate;
-			-webkit-animation: pulse .4s 4 alternate;
+			animation: pulse .3s infinite alternate;
+			-webkit-animation: pulse .4s infinite alternate;
 			-webkit-appearance: none;
 			-moz-appearance: none;
 			transform-origin: center;
@@ -925,38 +925,38 @@
 				};
 		        // FIN MARKER CLUSTER : cacher le label + gérer le regroupement*/
 
-		        $('.habitatInput').click(function(){
+		        $('.habitatInput img').mouseenter(function(){
 		        	$('.habitat').addClass('pulse');
 		        	$('#map img[src="habitat.png"]').addClass('pulse');
 		        });
-		        $('.habitatInput').mouseout(function(){
+		        $('.habitatInput img').mouseout(function(){
 		        	$('.habitat').removeClass('pulse');
 		        	$('#map img[src="habitat.png"]').removeClass('pulse');
 		        })
 
-		        $('.immobilierInput').click(function(){
+		        $('.immobilierInput img').mouseenter(function(){
 		        	$('.immobilier').addClass('pulse');
 		        	$('#map img[src="immobilier.png"]').addClass('pulse');
 		        });
-		        $('.immobilierInput').mouseout(function(){
+		        $('.immobilierInput img').mouseout(function(){
 		        	$('.immobilier').removeClass('pulse');
 		        	$('#map img[src="immobilier.png"]').removeClass('pulse');
 		        })
 
-		        $('.amenagementInput').click(function(){
+		        $('.amenagementInput img').mouseenter(function(){
 		        	$('.amenagement').addClass('pulse');
 		        	$('#map img[src="amenagement.png"]').addClass('pulse');
 		        });
-		        $('.amenagementInput').mouseout(function(){
+		        $('.amenagementInput img').mouseout(function(){
 		        	$('.amenagement').removeClass('pulse');
 		        	$('#map img[src="amenagement.png"]').removeClass('pulse');
 		        })
 
-		        $('.ingenierieInput').click(function(){
+		        $('.ingenierieInput img ').mouseenter(function(){
 		        	$('.ingenierie').addClass('pulse');
 		        	$('#map img[src="ingenierie.png"]').addClass('pulse');
 		        });
-		        $('.ingenierieInput').mouseout(function(){
+		        $('.ingenierieInput img').mouseout(function(){
 		        	$('.ingenierie').removeClass('pulse');
 		        	$('#map img[src="ingenierie.png"]').removeClass('pulse');
 		        })
