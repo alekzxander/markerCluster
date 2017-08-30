@@ -58,38 +58,65 @@
 	background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
 }
 .filtre {display: inline-block;}
-
-.ingenierie {
-  	animation: pulse .5s alternate;
-    -webkit-animation: pulse .5s -webkit-appearance: none;
+#overlay {
+	animation: pulse .3s infinite alternate;
+    -webkit-animation: pulse .4s  alternate;
+    -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;lternate;
+    transform-origin: center;
+    -webkit-transform-origin: center;}
+.habitat {}
+.habitatPulse{
+  	animation: pulse .3s 4 alternate;
+    -webkit-animation: pulse .4s 4 alternate;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     transform-origin: center;
     -webkit-transform-origin: center;
+    z-index: 2000;
 }
-.habitat {
-  	animation: pulse .5s alternate;
-    -webkit-animation: pulse .5s  alternate;
+.amenagement {}
+.amenagementPulse  {
+  	animation: pulse 4 .4s alternate;
+    -webkit-animation: pulse 4 .4s alternate;
+     -webkit-appearance: none;
+    -moz-appearance: none;
     transform-origin: center;
     -webkit-transform-origin: center;
+     z-index: 2000;
 }
-.amenagement  {
-  	animation: pulse .5s alternate;
-    -webkit-animation: pulse .5s alternate;
+.immobilier {}
+.immobilierPulse{
+  	animation: pulse .3s 4 alternate;
+    -webkit-animation: pulse .4s 4 alternate;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     transform-origin: center;
     -webkit-transform-origin: center;
-}*/
+    z-index: 2000;
+}
+.ingenierie {}
+.ingenieriePulse{
+  	animation: pulse .3s 4 alternate;
+    -webkit-animation: pulse .4s 4 alternate;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transform-origin: center;
+    -webkit-transform-origin: center;
+    z-index: 2000;
+}
+*/
 keyframes pulse{
     to { 
-        transform: scale(0.7);
-        -webkit-transform: scale(0.7);  
+        transform: scale(1.6);
+        -webkit-transform: scale(1.5);  
     }
 }
 
 @-webkit-keyframes pulse{
     to { 
-        transform: scale(0.7);
-        -webkit-transform: scale(0.7);  
+        transform: scale(1.6);
+        -webkit-transform: scale(1.5);  
     }
 }
 
@@ -114,7 +141,12 @@ body {margin: 0; padding: 0;}
 			<img src="amenagement2.png" alt="">
 				<h3>amenagement</h3>
 		</div>
+		<div class="ingenierieInput">
+			<img src="ingenierie2.png" alt="">
+				<h3>ingenierie</h3>
+		</div>
 	</div>
+		
 	<script type="text/javascript">
 
 var data = [
@@ -139,12 +171,12 @@ var data = [
 			{country: 'amenagement', name: 'Bristol', lat: -20.890375411758, lng: 55.478247832507},
 			{country: 'amenagement', name: 'Plymouth', lat: -20.913568159019, lng: 55.477636288851},
 			{country: 'amenagement', name: 'Londres', lat: -20.9000754, lng: 55.5013121},
-			{country: 'amenagement', name: 'Bristol', lat: -20.8960772, lng: 55.489854},
-			{country: 'amenagement', name: 'Plymouth', lat: -20.932525568395, lng: 55.295120095834},
-			{country: 'amenagement', name: 'Londres', lat: -20.9320153, lng: 55.2949112},
-			{country: 'amenagement', name: 'Bristol', lat: -20.9065427, lng: 55.5005946},
-			{country: 'amenagement', name: 'Plymouth', lat: -20.895779976115, lng: 55.4460264},
-			{country: 'amenagement', name: 'Londres', lat: -20.905792827343, lng: 55.603423928842},
+			{country: 'immobilier', name: 'Bristol', lat: -21.2260772, lng: 55.489854},
+			{country: 'immobilier', name: 'Plymouth', lat: -21.192525568395, lng: 55.295120095834},
+			{country: 'immobilier', name: 'Londres', lat: -20.9320153, lng: 55.2949112},
+			{country: 'immobilier', name: 'Bristol', lat: -20.9065427, lng: 55.5005946},
+			{country: 'immobilier', name: 'Plymouth', lat: -20.895779976115, lng: 55.4460264},
+			{country: 'immobilier', name: 'Londres', lat: -20.905792827343, lng: 55.603423928842},
 			];
 //zoom de depart avec le minimun d'affichage
 		var zoom_depart = [		
@@ -443,9 +475,13 @@ var marker = new google.maps.Marker({
 	position: latLng,
 	icon : 'https://s3-eu-west-1.amazonaws.com/test-sodiac/' +
 	place.country + '1.png',
-	optimized: false,
-	animation : google.maps.Animation.DROP
+	class : country,
+	animation : google.maps.Animation.DROP,
+	optimized:false,
 });
+
+marker.set("class", "test");
+console.log(place.country)
 // Ajout des marker dans le tableau
 placeMarkerList[place.country].push(marker);
 //Ouverture de la popup au click
@@ -453,21 +489,7 @@ marker.addListener('click', function() {
 infowindow.open(map, this);
 });
 
-marker.addListener('click', toggleBounce)
-
-function toggleBounce() {
-	if (this.getAnimation() != null) {
-		this.setAnimation(null);
-	} else {
-		this.setAnimation(google.maps.Animation.BOUNCE);
-	}
-  }
-
 }//boucle for
-
-
-
-
 
 var contentString = '<div id="iw-container">' +
 	'<div class="iw-title">Sodiac Reunion</div>' +
@@ -499,26 +521,28 @@ for (var country in placeMarkerList) {
 	if (placeMarkerList.hasOwnProperty(country)) {
 		var markerCluster = new MarkerClusterer(map,placeMarkerList[country],{
 			imagePath: 'https://s3-eu-west-1.amazonaws.com/test-sodiac/' + country,
-			optimized: false,
 			zoomOnClick: true,
 			cssClass :country,
 		});
 	}
-
 }
-
-$('.ingenierieInput').click(function(){
-	$('.ingenierie').prop('disabled',true);	
-	$('.ingenierie').prop('disabled',false);	
+$('.habitatInput').mouseenter(function(){
+	$('.habitat').toggleClass('habitatPulse');
+	$('#map img[src$="habitat1.png"').toggleClass('habitatPulse');
 })
-
-	   var myoverlay = new google.maps.OverlayView();
-       myoverlay.draw = function () {
-           // add an id to the layer that includes all the markers so you can use it in CSS
-       this.getPanes().markerLayer.id='amenagement';
-		};
-
-		myoverlay.setMap(map);
+$('.immobilierInput').mouseenter(function(){
+	$('.immobilier').toggleClass('immobilierPulse');
+	$('#map img[src$="immobilier1.png"').toggleClass('immobilierPulse');
+})
+$('.amenagementInput').mouseenter(function(){
+	$('.amenagement').toggleClass('amenagementPulse');
+	$('#map img[src$="amenagement1.png"').toggleClass('amenagementPulse');
+})
+$('.ingenierieInput').mouseenter(function(){
+	$('.ingenierie').toggleClass('ingenieriePulse');
+	$('#map img[src$="ingenierie1.png"').toggleClass('ingenieriePulse');
+})
+	
 
 google.maps.event.addListener(infowindow, 'domready', function() {
 
@@ -563,8 +587,8 @@ google.maps.event.addListener(infowindow, 'domready', function() {
     // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
     iwCloseBtn.mouseout(function(){
     		$(this).css({opacity: '1'});
-    	});
-	});
+    });
+});
 });
 }
 
