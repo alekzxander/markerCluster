@@ -69,46 +69,7 @@
 		.filtre {
 			display: inline-block;
 		}
-		#overlay {
-			animation: pulse .3s infinite alternate;
-			-webkit-animation: pulse .4s  alternate;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			transform-origin: center;
-			-webkit-transform-origin: center;
-		}
-		.habitat {}
-		.habitatPulse{
-			animation: pulse .3s 4 alternate;
-			-webkit-animation: pulse .4s 4 alternate;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			transform-origin: center;
-			-webkit-transform-origin: center;
-			z-index: 2000;
-		}
-		.amenagement {}
-		.amenagementPulse {
-			animation: pulse 4 .4s alternate;
-			-webkit-animation: pulse 4 .4s alternate;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			transform-origin: center;
-			-webkit-transform-origin: center;
-			z-index: 2000;
-		}
-		.immobilier {}
-		.immobilierPulse {
-			animation: pulse .3s 4 alternate;
-			-webkit-animation: pulse .4s 4 alternate;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			transform-origin: center;
-			-webkit-transform-origin: center;
-			z-index: 2000;
-		}
-		.ingenierie {}
-		.ingenieriePulse {
+		.pulse {
 			animation: pulse .3s 4 alternate;
 			-webkit-animation: pulse .4s 4 alternate;
 			-webkit-appearance: none;
@@ -896,8 +857,7 @@
 						optimized:false,
 					});
 
-					marker.set("class", "test");
-					console.log(place.country);
+					
 					// Ajout des marker dans le tableau
 					placeMarkerList[place.country].push(marker);
 					//Ouverture de la popup au click
@@ -966,21 +926,41 @@
 		        // FIN MARKER CLUSTER : cacher le label + gérer le regroupement*/
 
 		        $('.habitatInput').click(function(){
-		        	$('.habitat').toggleClass('habitatPulse');
-		        	$('#map img[src$="habitat.png"').toggleClass('habitatPulse');
+		        	$('.habitat').addClass('pulse');
+		        	$('#map img[src$="habitat.png"').addClass('pulse');
 		        });
+		        $('.habitatInput').mouseout(function(){
+		        	$('.habitat').removeClass('pulse');
+		        	$('#map img[src$="habitat.png"').removeClass('pulse');
+		        })
+
 		        $('.immobilierInput').click(function(){
-		        	$('.immobilier').toggleClass('immobilierPulse');
-		        	$('#map img[src$="immobilier.png"').toggleClass('immobilierPulse');
+		        	$('.immobilier').addClass('pulse');
+		        	$('#map img[src$="immobilier.png"').addClass('pulse');
 		        });
+		        $('.immobilierInput').mouseout(function(){
+		        	$('.immobilier').removeClass('pulse');
+		        	$('#map img[src$="immobilier.png"').removeClass('pulse');
+		        })
+
 		        $('.amenagementInput').click(function(){
-		        	$('.amenagement').toggleClass('amenagementPulse');
-		        	$('#map img[src$="amenagement.png"').toggleClass('amenagementPulse');
+		        	$('.amenagement').addClass('pulse');
+		        	$('#map img[src$="amenagement.png"').addClass('pulse');
 		        });
+		        $('.amenagementInput').mouseout(function(){
+		        	$('.amenagement').removeClass('pulse');
+		        	$('#map img[src$="amenagement.png"').removeClass('pulse');
+		        })
+
 		        $('.ingenierieInput').click(function(){
-		        	$('.ingenierie').toggleClass('ingenieriePulse');
-		        	$('#map img[src$="ingenierie.png"').toggleClass('ingenieriePulse');
+		        	$('.ingenierie').addClass('pulse');
+		        	$('#map img[src$="ingenierie.png"').addClass('pulse');
 		        });
+		        $('.ingenierieInput').mouseout(function(){
+		        	$('.ingenierie').removeClass('pulse');
+		        	$('#map img[src$="ingenierie.png"').removeClass('pulse');
+		        })
+
 
 		        google.maps.event.addListener(infowindow, 'domready', function() {
 
