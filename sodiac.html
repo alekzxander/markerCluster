@@ -70,8 +70,8 @@
 			display: inline-block;
 		}
 		.pulse {
-			animation: pulse .3s infinite alternate;
-			-webkit-animation: pulse .4s infinite alternate;
+			animation: pulse .3s 4 alternate;
+			-webkit-animation: pulse .4s 4 alternate;
 			-webkit-appearance: none;
 			-moz-appearance: none;
 			transform-origin: center;
@@ -95,22 +95,21 @@
 <body> 
 	<div id="map"></div>
 	<div class="filtre">
-		<div class="habitatInput">
-			<img src="habitat2.png" alt="">
+		
+			<img class="habitat" src="habitat2.png" alt="">
 			<h3>Habitat</h3>
-		</div>
-		<div class="immobilierInput">
-			<img src="immobilier2.png" alt="">
+	
+	
+			<img class="immobilier" src="immobilier2.png" alt="">
 			<h3>Immobilier</h3>
-		</div>
-		<div class="amenagementInput">
-			<img src="amenagement2.png" alt="">
+			
+			<img class="amenagement" src="amenagement2.png" alt="">
 			<h3>Amenagement</h3>
-		</div>
-		<div class="ingenierieInput">
-			<img src="ingenierie2.png" alt="">
+	
+	
+			<img class="ingenierie" src="ingenierie2.png" alt="">
 			<h3>Ingenierie</h3>
-		</div>
+		
 	</div>
 
 	<script type="text/javascript">
@@ -925,42 +924,16 @@
 				};
 		        // FIN MARKER CLUSTER : cacher le label + gérer le regroupement*/
 
-		        $('.habitatInput img').mouseenter(function(){
-		        	$('.habitat').addClass('pulse');
-		        	$('#map img[src="habitat.png"]').addClass('pulse');
+		        $('.filtre img').mouseenter(function(){	        	
+		        	let klass = $(this).attr('class');
+		        	$('#map .'+klass).addClass('pulse');
+		        	$('#map img[src="'+klass+'.png"]').addClass('pulse');
 		        });
-		        $('.habitatInput img').mouseout(function(){
-		        	$('.habitat').removeClass('pulse');
-		        	$('#map img[src="habitat.png"]').removeClass('pulse');
+		        $('.filtre img').mouseout(function(){
+		        	let klass = $(this).attr('class');
+		        	$('#map .'+klass).removeClass('pulse');
+		        	$('#map img[src="'+klass+'.png"]').removeClass('pulse');
 		        })
-
-		        $('.immobilierInput img').mouseenter(function(){
-		        	$('.immobilier').addClass('pulse');
-		        	$('#map img[src="immobilier.png"]').addClass('pulse');
-		        });
-		        $('.immobilierInput img').mouseout(function(){
-		        	$('.immobilier').removeClass('pulse');
-		        	$('#map img[src="immobilier.png"]').removeClass('pulse');
-		        })
-
-		        $('.amenagementInput img').mouseenter(function(){
-		        	$('.amenagement').addClass('pulse');
-		        	$('#map img[src="amenagement.png"]').addClass('pulse');
-		        });
-		        $('.amenagementInput img').mouseout(function(){
-		        	$('.amenagement').removeClass('pulse');
-		        	$('#map img[src="amenagement.png"]').removeClass('pulse');
-		        })
-
-		        $('.ingenierieInput img ').mouseenter(function(){
-		        	$('.ingenierie').addClass('pulse');
-		        	$('#map img[src="ingenierie.png"]').addClass('pulse');
-		        });
-		        $('.ingenierieInput img').mouseout(function(){
-		        	$('.ingenierie').removeClass('pulse');
-		        	$('#map img[src="ingenierie.png"]').removeClass('pulse');
-		        })
-
 
 		        google.maps.event.addListener(infowindow, 'domready', function() {
 
